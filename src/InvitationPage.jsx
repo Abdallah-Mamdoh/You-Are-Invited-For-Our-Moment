@@ -272,7 +272,7 @@ function GardenBackground() {
         alt="venue"
         style={{
           width: "90%",
-          height: "80%",
+          height: "100%",
           objectFit: "cover",
           borderRadius: "6px",
         }}
@@ -544,7 +544,7 @@ export default function InvitationPage() {
 const s = {
   hero: {
     width: "100%",
-    minHeight: "100vh",
+    minHeight: "80vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
