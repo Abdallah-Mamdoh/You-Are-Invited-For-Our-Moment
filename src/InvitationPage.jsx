@@ -125,11 +125,12 @@ function Countdown() {
 
 /* ── Pink colour palette circles ── */
 const PINK_PALETTE = [
-  { color: "#F2B5C8", name: "Blush" },
-  { color: "#E87EA1", name: "Rose" },
-  { color: "#D4537E", name: "Deep Rose" },
-  { color: "#F7D6E0", name: "Petal" },
-  { color: "#C2185B", name: "Fuchsia" },
+  { color: "#FDE4EC", name: "Baby Pink" },
+  { color: "#F8BBD0", name: "Soft Pink" },
+  { color: "#F48FB1", name: "Classic Pink" },
+  { color: "#EC407A", name: "Rose Pink" },
+  { color: "#C2185B", name: "Deep Rose" },
+  { color: "#880E4F", name: "Burgundy" },
 ];
 
 function PinkPalette() {
