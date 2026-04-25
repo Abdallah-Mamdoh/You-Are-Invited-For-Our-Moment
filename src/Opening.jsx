@@ -1,39 +1,23 @@
-import { useState } from "react";
-import InvitationPage from "./InvitationPage";
+import { useState, useEffect } from "react";
 import envelopeImg from "./envelope.png";
 
-export default function OpeningPage() {
-  const [tapped, setTapped] = useState(false);
-  const [showInvite, setShowInvite] = useState(false);
+export default function Opening({ onOpen }) {
+  const [stars, setStars] = useState([]);
 
-  const handleTap = () => {
-    if (tapped) return;
-    setTapped(true);
-    setTimeout(() => setShowInvite(true), 700);
-  };
-
-  if (showInvite) {
-    return (
-      <div style={{ animation: "fadeIn 0.9s ease forwards" }}>
-        <style>{`@keyframes fadeIn{from{opacity:0}to{opacity:1}}`}</style>
-        <InvitationPage />
-      </div>
-    );
-  }
+  useEffect(() => {
+    const generated = Array.from({ length: 35 }, (_, i) => ({
+      id: i,
+      size: Math.random() * 2 + 0.8,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 2 + Math.random() * 4,
+      delay: Math.random() * 5,
+    }));
+    setStars(generated);
+  }, []);
 
   return (
-    <div
-      onClick={handleTap}
-      style={{
-        width: "100vw",
-        height: "100dvh",
-        cursor: "pointer",
-        userSelect: "none",
-        overflow: "hidden",
-        animation: tapped ? "fadeOut 0.7s ease forwards" : "none",
-      }}
-    >
-      <style>{`@keyframes fadeOut{from{opacity:1}to{opacity:0}}`}</style>
+    <div onClick={onOpen} style={styles.screen}>
       <img
         src={envelopeImg}
         alt="envelope"
@@ -48,3 +32,14 @@ export default function OpeningPage() {
     </div>
   );
 }
+
+const styles = {
+  screen: {
+    width: "100vw",
+    height: "100vh",
+    position: "relative",
+    overflow: "hidden",
+    cursor: "pointer",
+    background: "radial-gradient(ellipse at 50% 55%, #2a1c08 0%, #0e0904 100%)",
+  },
+};
