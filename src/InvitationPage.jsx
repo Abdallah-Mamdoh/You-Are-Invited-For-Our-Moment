@@ -79,7 +79,7 @@ function Divider() {
 function Countdown() {
   const [time, setTime] = useState({ d: "--", h: "--", m: "--", s: "--" });
   useEffect(() => {
-    const target = new Date("2026-06-12T18:00:00");
+    const target = new Date("2026-06-10T18:00:00");
     const pad = (n) => String(Math.floor(n)).padStart(2, "0");
     const tick = () => {
       const diff = target - new Date();
@@ -281,6 +281,152 @@ function GardenBackground() {
   );
 }
 
+/* ── Playlist Section ── */
+const SONGS = [
+  {
+    title: "A Thousand Years",
+    artist: "Christina Perri",
+    img: "https://picsum.photos/seed/song1/54/54",
+    link: "https://www.anghami.com/song/1000-years-christina-perri",
+  },
+  {
+    title: "Can't Help Falling in Love",
+    artist: "Elvis Presley",
+    img: "https://picsum.photos/seed/song2/54/54",
+    link: "https://www.anghami.com/song/cant-help-falling-in-love",
+  },
+  {
+    title: "Thinking Out Loud",
+    artist: "Ed Sheeran",
+    img: "https://picsum.photos/seed/song3/54/54",
+    link: "https://www.anghami.com/song/thinking-out-loud-ed-sheeran",
+  },
+  {
+    title: "Leil Eid",
+    artist: "Amr Diab",
+    img: "https://picsum.photos/seed/song4/54/54",
+    link: "https://www.anghami.com/song/leil-eid-amr-diab",
+  },
+  {
+    title: "Perfect",
+    artist: "Ed Sheeran",
+    img: "https://picsum.photos/seed/song5/54/54",
+    link: "https://www.anghami.com/song/perfect-ed-sheeran",
+  },
+];
+
+function PlaylistSection() {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      style={{
+        padding: "56px 32px",
+        textAlign: "center",
+        background: "#fff",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(36px)",
+        transition: "opacity 0.85s ease, transform 0.85s ease",
+      }}
+    >
+      <span style={t.ornament}>✦</span>
+      <div style={t.msgTitle}>Our Playlist</div>
+      <div style={t.secTitle}>The songs of our day</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 8 }}>
+        {SONGS.map((song) => (
+          <SongCard key={song.title} song={song} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SongCard({ song }) {
+  const [hovered, setHovered] = useState(false);
+  const [btnHovered, setBtnHovered] = useState(false);
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+        border: "0.5px solid rgba(201,168,76,0.3)",
+        borderRadius: 4,
+        padding: "14px 16px",
+        textAlign: "left",
+        transition: "box-shadow 0.3s",
+        boxShadow: hovered ? "0 6px 28px rgba(201,168,76,0.13)" : "none",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        style={{
+          width: 54,
+          height: 54,
+          borderRadius: 4,
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+      >
+        <img
+          src={song.img}
+          alt={song.title}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 15,
+            color: "#2a1a06",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {song.title}
+        </div>
+        <div
+          style={{
+            fontSize: 12,
+            color: "#8a7050",
+            fontStyle: "italic",
+            marginTop: 2,
+          }}
+        >
+          {song.artist}
+        </div>
+      </div>
+      <a
+        href={song.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          border: "1px solid #c9a84c",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          textDecoration: "none",
+          transition: "transform 0.2s",
+          transform: btnHovered ? "scale(1.1)" : "scale(1)",
+        }}
+        onMouseEnter={() => setBtnHovered(true)}
+        onMouseLeave={() => setBtnHovered(false)}
+      >
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+          <path d="M1 1l10 6L1 13V1z" fill="#c9a84c" />
+        </svg>
+      </a>
+    </div>
+  );
+}
+
 /* ── Main component ── */
 export default function InvitationPage() {
   const [footerRef, footerVisible] = useReveal();
@@ -310,7 +456,6 @@ export default function InvitationPage() {
       >
         {/* ── HERO ── */}
         <div style={s.hero}>
-          {/* Corner decorations */}
           {[
             { top: 18, left: 18, borderWidth: "1px 0 0 1px" },
             { top: 18, right: 18, borderWidth: "1px 1px 0 0" },
@@ -331,10 +476,8 @@ export default function InvitationPage() {
             />
           ))}
 
-          {/* Pencil drawing background */}
           <GardenBackground />
 
-          {/* Soft cream overlay */}
           <div
             style={{
               position: "absolute",
@@ -344,7 +487,6 @@ export default function InvitationPage() {
             }}
           />
 
-          {/* Text content */}
           <div
             style={{
               position: "relative",
@@ -372,8 +514,8 @@ export default function InvitationPage() {
         {/* ── DATE + COUNTDOWN ── */}
         <Section>
           <span style={t.ornament}>✦ &nbsp; ✦ &nbsp; ✦</span>
-          <div style={t.dateDay}>Friday</div>
-          <div style={t.dateNum}>12</div>
+          <div style={t.dateDay}>Wednesday</div>
+          <div style={t.dateNum}>10</div>
           <div style={t.dateMonth}>June</div>
           <div style={t.dateYear}>2026</div>
           <div style={t.dateNote}>
@@ -434,41 +576,32 @@ export default function InvitationPage() {
               alignItems: "center",
             }}
           >
-            {/* <a
-              className="rsvp-btn"
-              href="https://chat.whatsapp.com/GEbFhm3vZRLCcK1LOnkB0X?mode=gi_t"
-              style={t.rsvpBtn}
-            >
-              💬 &nbsp; RSVP
-            </a> */}
             <a
-  href="https://chat.whatsapp.com/GEbFhm3vZRLCcK1LOnkB0X?mode=gi_t"
-  style={{
-    padding: "12px 24px",
-    borderRadius: "30px",
-    background: "#111",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "16px",
-    fontWeight: "500",
-    letterSpacing: "1px",
-    display: "inline-block",
-    transition: "0.3s ease",
-  }}
-  onMouseOver={(e) => (e.target.style.opacity = 0.8)}
-  onMouseOut={(e) => (e.target.style.opacity = 1)}
->
-  Join Our WhatsApp Group
-</a>
-            {/* <a
-              className="rsvp-btn"
-              href="mailto:abdallahmamdouh.eng@gmail.com?subject=RSVP%20-%20Abdallah%20%26%20Sohaila%20Engagement&body=I%20am%20happy%20to%20confirm%20my%20attendance.%20Congratulations!"
-              style={t.rsvpBtn}
+              href="https://chat.whatsapp.com/GEbFhm3vZRLCcK1LOnkB0X?mode=gi_t"
+              style={{
+                padding: "12px 24px",
+                borderRadius: "30px",
+                background: "#111",
+                color: "#fff",
+                textDecoration: "none",
+                fontSize: "16px",
+                fontWeight: "500",
+                letterSpacing: "1px",
+                display: "inline-block",
+                transition: "0.3s ease",
+              }}
+              onMouseOver={(e) => (e.target.style.opacity = 0.8)}
+              onMouseOut={(e) => (e.target.style.opacity = 1)}
             >
-              ✉ &nbsp; RSVP via Abdallah
-            </a> */}
+              Join Our WhatsApp Group
+            </a>
           </div>
         </Section>
+
+        <Divider />
+
+        {/* ── PLAYLIST ── */}
+        <PlaylistSection />
 
         <Divider />
 
@@ -532,7 +665,7 @@ export default function InvitationPage() {
               marginTop: 4,
             }}
           >
-            12 · 06 · 2026
+            10 · 06 · 2026
           </div>
         </div>
       </div>
