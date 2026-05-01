@@ -75,7 +75,7 @@ function Divider() {
 function Countdown() {
   const [time, setTime] = useState({ d: "--", h: "--", m: "--", s: "--" });
   useEffect(() => {
-    const target = new Date("2026-06-10T18:00:00");
+    const target = new Date("2026-06-10T20:00:00");
     const pad = (n) => String(Math.floor(n)).padStart(2, "0");
     const tick = () => {
       const diff = target - new Date();
@@ -149,7 +149,7 @@ function PinkPalette() {
     >
       <span style={t.ornament}>✦</span>
       <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 12, letterSpacing: 6, color: "#8a7050", textTransform: "uppercase", marginBottom: 28, fontStyle: "italic" }}>
-        Our Colour Palette
+        Girls Colour Palette
       </div>
       <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
         {PINK_PALETTE.map((p) => (
